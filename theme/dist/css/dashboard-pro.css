@@ -1,0 +1,880 @@
+/* Dashboard layout — Lovable-style cards on top of the global app theme */
+body.dash-pro .content-header {
+  display: none;
+}
+
+body.dash-pro .content {
+  padding-top: 4px;
+}
+
+.dp-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 6px 0 20px;
+  width: 100%;
+  max-width: 100%;
+  clear: both;
+  float: none;
+}
+
+.dp-hero-text h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.04em;
+}
+
+.dp-hero-text p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.dp-periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e7ebf3;
+  padding: 6px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.dp-periods .get_tab_records {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  height: 36px;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 36px;
+  border-radius: 12px;
+}
+
+.dp-periods .get_tab_records:hover {
+  background: #e0f6f7;
+  color: #0899a4;
+}
+
+.dp-periods .get_tab_records.active,
+.dp-periods .get_tab_records.btn-info.active {
+  background: linear-gradient(135deg, #0899a4 0%, #0dbec7 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 18px rgba(8, 153, 164, 0.32);
+}
+
+.dp-kpis,
+.dp-stats,
+.dp-split,
+.dp-split-eq,
+.dp-panel {
+  clear: both;
+  width: 100%;
+  max-width: 100%;
+}
+
+.dp-kpis,
+.dp-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.dp-kpi,
+.dp-stat,
+.dp-panel {
+  background: #fff;
+  border: 1px solid #e1edf0;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 14px 40px rgba(8, 153, 164, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.dp-kpi:hover,
+.dp-stat:hover {
+  border-color: #0dbec7;
+  box-shadow: 0 12px 30px rgba(8, 153, 164, 0.12);
+  transform: translateY(-2px);
+}
+
+.dp-kpi {
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 118px;
+}
+
+.dp-kpi-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 16px;
+}
+
+.dp-kpi-icon.ico-a { background: #e0f6f7; color: #0899a4; } /* Teal Cyan */
+.dp-kpi-icon.ico-b { background: #fff4ea; color: #ea7916; } /* Warm Tangerine Orange */
+.dp-kpi-icon.ico-c { background: #eff6ff; color: #2563eb; } /* Sapphire Blue */
+.dp-kpi-icon.ico-d { background: #fbf2ff; color: #811ba0; } /* Royal Purple */
+
+.dp-kpi-body { min-width: 0; flex: 1; }
+
+.dp-kpi-label,
+.dp-stat-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #607d8b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dp-kpi h3,
+.dp-stat-value {
+  margin: 8px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+  word-break: break-word;
+  letter-spacing: -0.03em;
+}
+
+.dp-stat {
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dp-stat-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f6f7;
+  color: #0899a4;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+.dp-stats > div:nth-child(1) .dp-stat-icon { background: #e0f6f7; color: #0899a4; }
+.dp-stats > div:nth-child(2) .dp-stat-icon { background: #fff4ea; color: #ea7916; }
+.dp-stats > div:nth-child(3) .dp-stat-icon { background: #eff6ff; color: #2563eb; }
+.dp-stats > div:nth-child(4) .dp-stat-icon { background: #fbf2ff; color: #811ba0; }
+
+.dp-panel {
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.dp-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f4fa;
+}
+
+.dp-panel-head h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: none;
+}
+
+.dp-panel-body { padding: 18px 20px; }
+.dp-panel-body.tight { padding: 0; }
+
+.dp-panel-foot {
+  padding: 12px 20px 16px;
+  text-align: right;
+  border-top: 1px solid #f1f4fa;
+}
+
+.dp-panel-foot a {
+  color: #0899a4;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dp-panel-foot a:hover {
+  color: #ea7916;
+  text-decoration: underline;
+}
+
+.dp-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.dp-split-eq {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dp-split-eq:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.dp-chart {
+  position: relative;
+  height: 280px;
+}
+
+.dp-chart canvas,
+.dp-chart .chart-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.subscription_chart .chart-container {
+  height: 260px;
+}
+
+.dp-donut {
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dp-donut canvas { max-height: 260px; }
+
+.dp-badge {
+  display: inline-block;
+  min-width: 72px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.03em;
+  background: #f1f5f9;
+  color: #334155;
+  border-radius: 999px;
+}
+
+.dp-badge.is-paid { background: #ecfdf5; color: #047857; }
+.dp-badge.is-unpaid { background: #fff1f2; color: #be123c; }
+.dp-badge.is-partial { background: #fffbeb; color: #b45309; }
+
+body.dash-pro .dp-panel .table > thead > tr > th {
+  background: #f3f8f9;
+  color: #084d56;
+}
+
+.dp-kicker {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, rgba(8, 153, 164, 0.12) 0%, rgba(14, 210, 190, 0.12) 100%);
+  color: #0899a4;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid rgba(8, 153, 164, 0.28);
+}
+
+.dp-kpi-meta {
+  display: block;
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dp-head-link {
+  margin-left: auto;
+  color: #0899a4;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dp-head-link:hover {
+  color: #ea7916;
+  text-decoration: underline;
+}
+
+body.sa-dash .ap-flash .alert-success.alert-dismissable {
+  display: none;
+}
+
+.sa-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 18px;
+  width: 100%;
+  clear: both;
+}
+
+.sa-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid #e1edf0;
+  border-radius: 18px;
+  padding: 16px 18px;
+  text-decoration: none !important;
+  box-shadow: 0 10px 30px rgba(8, 153, 164, 0.05);
+  color: #0f172a;
+  min-height: 78px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sa-action:hover {
+  border-color: #0dbec7;
+  box-shadow: 0 14px 36px rgba(8, 153, 164, 0.16);
+  transform: translateY(-2px);
+}
+
+.sa-action-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f6f7;
+  color: #0899a4;
+  border-radius: 14px;
+  font-size: 16px;
+}
+
+.sa-actions > a:nth-child(1) .sa-action-icon { background: #e0f6f7; color: #0899a4; } /* Teal */
+.sa-actions > a:nth-child(2) .sa-action-icon { background: #fbf2ff; color: #811ba0; } /* Purple */
+.sa-actions > a:nth-child(3) .sa-action-icon { background: #fff4ea; color: #ea7916; } /* Orange */
+.sa-actions > a:nth-child(4) .sa-action-icon { background: #eff6ff; color: #2563eb; } /* Blue */
+
+.sa-action strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sa-action em {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.sa-sub-chart .subscription_chart,
+.sa-sub-chart .chart-container {
+  height: 100%;
+}
+
+@media (max-width: 1199px) {
+  .dp-kpis,
+  .dp-stats,
+  .dp-split,
+  .dp-split-eq,
+  .sa-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .dp-hero {
+    gap: 12px;
+    margin: 4px 0 16px;
+  }
+
+  .dp-hero-text {
+    width: 100%;
+  }
+
+  .dp-hero-text h1 { font-size: 20px; }
+  .dp-hero-text p { font-size: 13px; }
+
+  .dp-kpis,
+  .dp-stats,
+  .dp-split,
+  .dp-split-eq,
+  .sa-actions {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .dp-periods {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px;
+    border-radius: 12px;
+  }
+
+  .dp-periods .get_tab_records {
+    flex: 0 0 auto;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .dp-chart,
+  .dp-donut { height: 220px; }
+}
+
+/* =========================================================
+   Live Colorful Digital Watch (Right Side of Dashboard)
+   ========================================================= */
+.dp-hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.dp-live-clock {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #07252a 0%, #0d3840 45%, #0899a4 100%);
+  border: 1.5px solid rgba(14, 210, 190, 0.45);
+  box-shadow: 0 10px 28px rgba(8, 153, 164, 0.22), 0 2px 8px rgba(0, 0, 0, 0.18);
+  border-radius: 18px;
+  padding: 8px 18px;
+  color: #ffffff;
+  user-select: none;
+  transition: all 0.25s ease;
+}
+
+.dp-live-clock:hover {
+  box-shadow: 0 12px 32px rgba(8, 153, 164, 0.35);
+  border-color: rgba(14, 210, 190, 0.75);
+  transform: translateY(-1px);
+}
+
+.clock-live-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.clock-pulse-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: clockPulse 1.6s infinite;
+}
+
+@keyframes clockPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.clock-live-text {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #34d399;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.clock-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.clock-digits {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.clock-hh, .clock-mm {
+  font-size: 24px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.clock-sep {
+  font-size: 20px;
+  color: #38bdf8;
+  animation: colonBlink 1s infinite;
+}
+
+@keyframes colonBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.3; }
+}
+
+.clock-ss {
+  font-size: 18px;
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.18);
+  border: 1px solid rgba(250, 204, 21, 0.35);
+  border-radius: 6px;
+  padding: 1px 5px;
+  margin: 0 4px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
+}
+
+.clock-ampm {
+  font-size: 10px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ea7916, #f97316);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(234, 121, 22, 0.4);
+}
+
+.clock-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #bbf2f6;
+  letter-spacing: 0.3px;
+}
+
+.clock-cal-icon {
+  color: #38bdf8;
+  font-size: 11px;
+}
+
+/* =========================================================
+   Dashboard Recent Sales & Activity Tables Horizontal Scroll
+   ========================================================= */
+.dp-panel-body.table-responsive,
+body.dash-pro .dp-panel .table-responsive {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+body.dash-pro .dp-panel .table {
+  min-width: 680px !important;
+  width: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+body.dash-pro .dp-panel .table > thead > tr > th,
+body.dash-pro .dp-panel .table > tbody > tr > td {
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+  padding: 11px 16px !important;
+  font-size: 13px !important;
+}
+
+body.dash-pro .dp-panel .table > tbody > tr:hover {
+  background: #f8fafc;
+}
+
+/* Custom sleek scrollbar for dashboard tables */
+.dp-panel-body.table-responsive::-webkit-scrollbar,
+body.dash-pro .dp-panel .table-responsive::-webkit-scrollbar {
+  height: 7px;
+}
+.dp-panel-body.table-responsive::-webkit-scrollbar-track,
+body.dash-pro .dp-panel .table-responsive::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+.dp-panel-body.table-responsive::-webkit-scrollbar-thumb,
+body.dash-pro .dp-panel .table-responsive::-webkit-scrollbar-thumb {
+  background: #0899a4;
+  border-radius: 4px;
+}
+.dp-panel-body.table-responsive::-webkit-scrollbar-thumb:hover,
+body.dash-pro .dp-panel .table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #0e838d;
+}
+
+@media (max-width: 767px) {
+  .dp-hero-right {
+    width: 100%;
+    align-items: stretch;
+  }
+  .dp-live-clock {
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .dp-live-clock {
+    padding: 6px 10px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+  .clock-live-indicator {
+    padding-right: 8px;
+  }
+  .clock-hh, .clock-mm {
+    font-size: 19px;
+  }
+  .clock-sep {
+    font-size: 16px;
+  }
+  .clock-ss {
+    font-size: 14px;
+    padding: 1px 4px;
+    margin: 0 2px;
+  }
+  .clock-ampm {
+    font-size: 9px;
+    padding: 1.5px 5px;
+  }
+  .clock-sub {
+    font-size: 10px;
+  }
+}
+
+/* =========================================================
+   DataTables & Dashboard Pagination Styling (Fixed Legibility)
+   ========================================================= */
+.dataTables_paginate,
+.dataTables_paginate .pagination,
+.dp-panel .dataTables_paginate .pagination {
+  margin: 12px 0 6px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 4px !important;
+}
+
+.dataTables_paginate .pagination > li > a,
+.dp-panel .dataTables_paginate .pagination > li > a,
+body.dash-pro .dataTables_paginate .pagination > li > a {
+  border-radius: 8px !important;
+  margin: 0 2px !important;
+  color: #1e293b !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 6px 13px !important;
+  line-height: 1.4 !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+}
+
+.dataTables_paginate .pagination > li > a:hover,
+.dp-panel .dataTables_paginate .pagination > li > a:hover,
+body.dash-pro .dataTables_paginate .pagination > li > a:hover {
+  background-color: #f1f5f9 !important;
+  color: #0284c7 !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Active Highlighted Page Button: Bright contrast, white text on primary background */
+.dataTables_paginate .pagination > .active > a,
+.dataTables_paginate .pagination > .active > a:focus,
+.dataTables_paginate .pagination > .active > a:hover,
+.dp-panel .dataTables_paginate .pagination > .active > a,
+.dp-panel .dataTables_paginate .pagination > .active > a:focus,
+.dp-panel .dataTables_paginate .pagination > .active > a:hover,
+body.dash-pro .dataTables_paginate .pagination > .active > a,
+body.dash-pro .dataTables_paginate .pagination > .active > a:focus,
+body.dash-pro .dataTables_paginate .pagination > .active > a:hover {
+  background: #0284c7 !important;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4) !important;
+  cursor: default !important;
+}
+
+/* Disabled Pagination Button (e.g. Previous when on Page 1) */
+.dataTables_paginate .pagination > .disabled > a,
+.dataTables_paginate .pagination > .disabled > a:focus,
+.dataTables_paginate .pagination > .disabled > a:hover,
+.dp-panel .dataTables_paginate .pagination > .disabled > a,
+.dp-panel .dataTables_paginate .pagination > .disabled > a:focus,
+.dp-panel .dataTables_paginate .pagination > .disabled > a:hover,
+body.dash-pro .dataTables_paginate .pagination > .disabled > a,
+body.dash-pro .dataTables_paginate .pagination > .disabled > a:focus,
+body.dash-pro .dataTables_paginate .pagination > .disabled > a:hover {
+  color: #94a3b8 !important;
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   Recently Added Items Table - Compact, No Horizontal Scroll
+   ========================================================= */
+.dp-recent-items-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.dp-recent-count-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #006837;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.dp-recent-items-body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  max-height: 280px;
+  width: 100% !important;
+  display: block;
+}
+
+/* Custom sleek slim scrollbar for recent items body */
+.dp-recent-items-body::-webkit-scrollbar {
+  width: 5px;
+}
+.dp-recent-items-body::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+.dp-recent-items-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.dp-recent-items-body::-webkit-scrollbar-thumb:hover {
+  background: #006837;
+}
+
+body.dash-pro .dp-panel .table.dp-recent-items-tbl {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
+  margin: 0 !important;
+}
+
+body.dash-pro .dp-panel .table.dp-recent-items-tbl > thead > tr > th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 11.5px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 8px 10px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  white-space: nowrap !important;
+}
+
+body.dash-pro .dp-panel .table.dp-recent-items-tbl > tbody > tr > td {
+  padding: 7px 10px !important;
+  font-size: 12.5px !important;
+  vertical-align: middle !important;
+  border-top: 1px solid #f1f5f9 !important;
+  white-space: normal !important;
+}
+
+body.dash-pro .dp-panel .table.dp-recent-items-tbl > tbody > tr:hover {
+  background: #f0fdf4 !important;
+}
+
+.dp-recent-sl {
+  width: 36px !important;
+  text-align: center !important;
+  color: #94a3b8 !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  padding-left: 6px !important;
+  padding-right: 4px !important;
+}
+
+.dp-recent-name-td {
+  text-align: left !important;
+  overflow: hidden !important;
+  padding-right: 6px !important;
+}
+
+.dp-recent-name-text {
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 12.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.dp-recent-price-th {
+  width: 130px !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+  padding-left: 6px !important;
+  padding-right: 20px !important;
+  overflow: visible !important;
+}
+
+.dp-recent-price-td {
+  width: 130px !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+  padding-left: 6px !important;
+  padding-right: 20px !important;
+}
+
+.dp-recent-price-tag {
+  display: inline-block;
+  background: #ecfdf5;
+  color: #006837;
+  border: 1px solid #bbf7d0;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 2.5px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+
+
