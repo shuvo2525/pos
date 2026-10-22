@@ -1708,7 +1708,7 @@
         $tcpdf_1d = APPPATH . 'libraries/tcpdf/tcpdf_barcodes_1d.php';
         if(file_exists($tcpdf_1d)){
           require_once($tcpdf_1d);
-          $barcodeobj = new TCPDFBarcode($code_text, 'C128');
+          $barcodeobj = new TCPDFBarcode($code_text, 'C128B');
           if(extension_loaded('gd') && function_exists('imagecreate')){
             $b_data = $barcodeobj->getBarcodePngData($width, $height, array(0, 0, 0));
             if(!empty($b_data)){
@@ -1717,7 +1717,7 @@
           }
           $svg = $barcodeobj->getBarcodeSVGcode($width, $height, '#000000');
           if(!empty($svg)){
-            $svg = preg_replace('/<svg\s+width="([^"]+)"\s+height="([^"]+)"/', '<svg viewBox="0 0 $1 $2" width="$1" height="$2" preserveAspectRatio="none"', $svg);
+            $svg = preg_replace('/<svg\s+width="([^"]+)"\s+height="([^"]+)"/', '<svg viewBox="0 0 $1 $2" width="$1" height="$2" shape-rendering="crispEdges"', $svg);
             return 'data:image/svg+xml;base64,' . base64_encode($svg);
           }
         }

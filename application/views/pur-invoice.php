@@ -37,7 +37,7 @@
     $CI =& get_instance();
     $q3=$this->db->query("SELECT b.store_id,a.supplier_name,a.mobile,a.phone,a.gstin,a.tax_number,a.email,
                            a.opening_balance,a.country_id,a.state_id,a.city,
-                           a.postcode,a.address,b.purchase_date,b.reference_no,
+                           a.postcode,a.address,b.purchase_date,b.created_time,b.created_by,b.reference_no,
                            b.purchase_code,b.purchase_status,b.purchase_note,
                            coalesce(b.grand_total,0) as grand_total,
                            coalesce(b.subtotal,0) as subtotal,
@@ -74,6 +74,8 @@
     $supplier_tax_number=$res3->tax_number;
     $supplier_opening_balance=$res3->opening_balance;
     $purchase_date=$res3->purchase_date;
+    $created_time=(!empty($res3->created_time)) ? show_time($res3->created_time) : '';
+    $created_by=(!empty($res3->created_by)) ? get_user_fullname($res3->created_by) : 'Admin';
     $reference_no=$res3->reference_no;
     $purchase_code=$res3->purchase_code;
     $purchase_status=$res3->purchase_status;
@@ -121,15 +123,17 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> <?= $this->lang->line('purchase_invoice'); ?>
-            <small class="pull-right">Date: <?= show_date($purchase_date); ?></small>
+            <small class="pull-right">Date: <?= show_date($purchase_date)." ".$created_time; ?></small>
           </h2>
         </div>
         <!-- /.col -->
       </div>
       <!-- info row -->
       <div class="row invoice-info">
-        <div class="col-sm-4 invoice-col">
-          <i><?= $this->lang->line('from'); ?></i>
+        <div class="col-sm-6 invoice-col">
+          <h4 class='text-uppercase text-primary'>
+            <ins><?= $this->lang->line('from'); ?></ins>
+          </h4>
           <address>
             <strong><?php echo  $store_name; ?></strong><br>
             <?php echo  $company_address; ?>,
@@ -140,12 +144,28 @@
             <?php echo (!empty(trim($company_gst_no)) && gst_number()) ? $this->lang->line('gst_number').": ".$company_gst_no."<br>" : '';?>
             <?php echo (!empty(trim($company_vat_no)) && vat_number()) ? $this->lang->line('vat_number').": ".$company_vat_no."<br>" : '';?>
             <?php echo (!empty(trim($company_pan_no)) && pan_number()) ? $this->lang->line('pan_number').": ".$company_pan_no."<br>" : '';?>
-           
           </address>
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <i><?= $this->lang->line('supplier_details'); ?><br></i>
+        <div class="col-sm-6 invoice-col pull-right">
+          <b><?= $this->lang->line('invoice'); ?> #<?php echo  $purchase_code; ?></b><br>
+          <?php if(!empty($reference_no)){ ?>
+            <b><?= $this->lang->line('reference_no'); ?> :<?php echo  $reference_no; ?></b><br>
+          <?php } ?>
+          <b><?= $this->lang->line('purchase_status'); ?> :<span class="label label-success"><?php echo  $purchase_status; ?></span></b><br>
+          <b><?= $this->lang->line('payment_status'); ?> :<span class="label label-<?= ($payment_status == 'Paid') ? 'success' : 'warning'; ?>"><?php echo  $payment_status; ?></span></b><br>
+          <b>Purchased By :</b><?= htmlspecialchars($created_by); ?><br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-6 invoice-col">
+          <h4 class='text-uppercase text-primary'>
+            <ins><?= $this->lang->line('supplier_details'); ?></ins>
+          </h4>
           <address>
             <strong><?php echo  $supplier_name; ?></strong><br>
             <?php 
@@ -171,14 +191,16 @@
             <?php echo (!empty(trim($supplier_email))) ? $this->lang->line('email').": ".$supplier_email."<br>" : '';?>
             <?php echo (!empty(trim($supplier_gst_no)) && gst_number()) ? $this->lang->line('gst_number').": ".$supplier_gst_no."<br>" : '';?>
             <?php echo (!empty(trim($supplier_tax_number))) ? $this->lang->line('tax_number').": ".$supplier_tax_number."<br>" : '';?>
-
           </address>
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <b><?= $this->lang->line('invoice'); ?> #<?php echo  $purchase_code; ?></b><br>
-          <b><?= $this->lang->line('purchase_status'); ?> :<?php echo  $purchase_status; ?></b><br>
-         
+        <div class="col-sm-6 invoice-col">
+          <h4 class='text-uppercase text-primary'>
+            <ins><?= $this->lang->line('note'); ?></ins>
+          </h4>
+          <address>
+            <?php echo (!empty($purchase_note)) ? nl2br(htmlspecialchars($purchase_note)) : '<em>No purchase note</em>'; ?>
+          </address>
         </div>
         <!-- /.col -->
       </div>
@@ -227,8 +249,8 @@
                   echo "<tr>";  
                   echo "<td>".++$i."</td>";
                   echo "<td>";
-                    echo $res2->item_name;
-                    echo (!empty($res2->description)) ? "<br><i>[".nl2br($res2->description)."]</i>" : '';
+                    echo "<strong>" . htmlspecialchars($res2->item_name) . "</strong>";
+                    echo (!empty($res2->description)) ? "<div style='font-size: 11px; color: #006837; font-weight: 600; margin-top: 2px;'>[".nl2br(htmlspecialchars($res2->description))."]</div>" : '';
                   echo "</td>";
                   echo "<td>".$CI->currency($res2->price_per_unit)."</td>";
                   echo "<td>".format_qty($res2->purchase_qty)."</td>";
@@ -389,7 +411,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-6">
-          <?php if($CI->permissions('sales_edit')) { ?>
+          <?php if($CI->permissions('purchase_edit')) { ?>
           <a href="<?php echo $base_url; ?>purchase/update/<?php echo  $purchase_id ?>" class="btn btn-success">
             <i class="fa  fa-edit"></i> Edit
           </a>
@@ -397,28 +419,19 @@
 
           <a href='<?= base_url('items/labels/'.$purchase_id);?>' class="btn btn-info" title='Pop Up'><i class="fa fa-barcode"></i> Barcode</a>
 
-          
-          
-          
-          
           <?php if($CI->permissions('purchase_return_add')) { ?>
             <a href="<?php echo $base_url; ?>purchase_return/add/<?php echo  $purchase_id ?>" class="btn btn-danger">
             <i class="fa  fa-undo"></i> Purchase Return
           </a>
           <?php } ?>
-       
-          
-          
         </div>
         <div class="col-xs-6 text-right">
-          <a href="<?php echo $base_url; ?>purchase/print_invoice/<?php echo  $purchase_id ?>" target="_blank" class="btn btn-warning">
-              <i class="fa fa-print"></i> 
-            Print
+          <a href="<?php echo $base_url; ?>purchase/print_invoice/<?php echo  $purchase_id ?>" target="_blank" class="btn btn-success" style="margin-right: 5px;">
+            <i class="fa fa-print"></i> Print A4
           </a>
 
           <a href="<?php echo $base_url; ?>purchase/pdf/<?php echo  $purchase_id ?>" target="_blank" class="btn btn-primary">
-              <i class="fa fa-file-pdf-o"></i> 
-            PDF
+            <i class="fa fa-file-pdf-o"></i> Download PDF
           </a>
         </div>
       </div>

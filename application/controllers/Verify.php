@@ -53,6 +53,31 @@ class Verify extends CI_Controller {
         $q_sales = $this->db->get();
 
         if ($q_sales->num_rows() == 0) {
+            // Check db_purchase
+            $this->db->select("id, store_id");
+            $this->db->from("db_purchase");
+            $this->db->group_start();
+            $this->db->where("purchase_code", $sales_code_or_id);
+            if (is_numeric($sales_code_or_id)) {
+                $this->db->or_where("id", intval($sales_code_or_id));
+            }
+            $this->db->group_end();
+            $this->db->limit(1);
+
+            $q_pur = $this->db->get();
+            if ($q_pur->num_rows() > 0) {
+                $pur = $q_pur->row();
+                if (!$this->session->has_userdata('store_id') || empty($this->session->userdata('store_id'))) {
+                    $this->session->set_userdata('store_id', $pur->store_id);
+                }
+                $data = array(
+                    'purchase_id' => $pur->id,
+                    'page_title'  => 'Purchase Invoice'
+                );
+                $this->load->view('print-purchase-invoice-3', $data);
+                return;
+            }
+
             $data = array(
                 'page_title' => 'Invoice Not Found',
                 'found'      => false,
@@ -124,6 +149,28 @@ class Verify extends CI_Controller {
 
         $q = $this->db->get();
         if ($q->num_rows() == 0) {
+            $this->db->select("id, store_id");
+            $this->db->from("db_purchase");
+            $this->db->group_start();
+            $this->db->where("purchase_code", $sales_code_or_id);
+            if (is_numeric($sales_code_or_id)) {
+                $this->db->or_where("id", intval($sales_code_or_id));
+            }
+            $this->db->group_end();
+            $this->db->limit(1);
+            $qp = $this->db->get();
+            if ($qp->num_rows() > 0) {
+                $row = $qp->row();
+                if (!$this->session->has_userdata('store_id') || empty($this->session->userdata('store_id'))) {
+                    $this->session->set_userdata('store_id', $row->store_id);
+                }
+                $data = array(
+                    'purchase_id' => $row->id,
+                    'page_title'  => 'Purchase Invoice'
+                );
+                $this->load->view('print-purchase-invoice-3', $data);
+                return;
+            }
             show_404();
         }
 

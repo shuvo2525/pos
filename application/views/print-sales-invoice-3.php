@@ -128,11 +128,13 @@
       line-height: 1.3;
     }
     .barcode-img {
-      height: 25px;
-      max-width: 170px;
+      height: 26px;
+      max-width: 220px;
       width: auto;
       margin-top: 3px;
       display: inline-block;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
     }
 
     .pad-divider {

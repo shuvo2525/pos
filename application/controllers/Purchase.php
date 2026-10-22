@@ -228,7 +228,7 @@ class Purchase extends MY_Controller {
 		$data=$this->data;
 		$data=array_merge($data,array('purchase_id'=>$purchase_id));
 		$data['page_title']=$this->lang->line('purchase_invoice');
-		$this->load->view('print-purchase-invoice-2',$data);
+		$this->load->view('print-purchase-invoice-3',$data);
 	}
 	public function pdf($purchase_id)
 	{
@@ -237,30 +237,32 @@ class Purchase extends MY_Controller {
 			$this->show_access_denied_page();
 		}
 		$data=$this->data;
-		$data=array_merge($data,array('purchase_id'=>$purchase_id));
+		$data=array_merge($data,array('purchase_id'=>$purchase_id, 'is_pdf'=>true));
 		$data['page_title']=$this->lang->line('purchase_invoice');
-		$this->load->view('print-purchase-invoice-2',$data);
 
-		mb_internal_encoding('UTF-8');
+		$html = $this->load->view('print-purchase-invoice-3',$data, true);
 
-		// Get output html
-        $html = $this->output->get_output();
-        
-        $options = new Options();
-		$options->set('isRemoteEnabled', true);
-        $dompdf = new Dompdf($options);
+		try {
+			while (ob_get_level() > 0) {
+				ob_end_clean();
+			}
 
-        // Load HTML content
-        $dompdf->loadHtml($html,'UTF-8');
-        
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'portrait');/*landscape or portrait*/
-        
-        // Render the HTML as PDF
-        $dompdf->render();
-        
-        // Output the generated PDF (1 = download and 0 = preview)
-        $dompdf->stream("Purchase-invoice-$purchase_id-".date('M')."_".date('d')."_".date('Y'), array("Attachment"=>0));
+			$options = new Options();
+			$options->set('isRemoteEnabled', false);
+			$options->set('defaultFont', 'Helvetica');
+			$options->set('isHtml5ParserEnabled', true);
+			$dompdf = new Dompdf($options);
+
+			$dompdf->loadHtml($html, 'UTF-8');
+			$dompdf->setPaper('A4', 'portrait');
+			$dompdf->render();
+
+			$dompdf->stream("Purchase-invoice-$purchase_id-" . date('M') . "_" . date('d') . "_" . date('Y') . ".pdf", array("Attachment" => 0));
+			exit;
+		} catch(Throwable $e) {
+			echo $html;
+			exit;
+		}
 	}
 
 
